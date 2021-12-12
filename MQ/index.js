@@ -24,24 +24,28 @@ app.get("/subscribe/:subscriberId", (req, res) => {
         res.status(500).json({error: "something broke internally!"})
     }
 
-    switch (format.toLocaleLowerCase()) {
-        case "json":
-            res.json(messages);
-            break;
-        case "xml":
-            res.set("Content-type", "text/xml");
-            
-            for (let i = 0; i < messages.length; i++) {
-                messages[i] = { messageObj: messages[i] };
-            }
-
-            res.send(xmlBuilder.buildObject({ messages }));
-            break;
-        default:
-            res.status(404).json({error: "format type is not supported!"});
-            break;
+    if (messages.length > 0) {
+        switch (format.toLocaleLowerCase()) {
+            case "json":
+                res.json(messages);
+                break;
+            case "xml":
+                res.set("Content-type", "text/xml");
+                
+                for (let i = 0; i < messages.length; i++) {
+                    messages[i] = { messageObj: messages[i] };
+                }
+    
+                res.send(xmlBuilder.buildObject({ messages }));
+                break;
+            default:
+                res.status(404).json({error: "format type is not supported!"});
+                break;
+        }
     }
-
+    else {
+        res.status(204).json({message: "no new messages was found!"});
+    }
 });
 
 app.post("/publish", (req, res) => {

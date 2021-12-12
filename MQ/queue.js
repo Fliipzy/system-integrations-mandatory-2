@@ -8,7 +8,7 @@ let db = new JsonDB(new Config("db.json", true, true, "/"));
 function publish(publisherId, subscriberId, message) {
     const id = uuid.v4();
     db.push("/messages[]", 
-    {id: id, publisherId: publisherId, subscriberId: subscriberId, message: message}, 
+    {id: id, publisherId: publisherId, createdAt: new Date().toISOString(), subscriberId: subscriberId, message: message}, 
     true);
 }
 
