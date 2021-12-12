@@ -1,0 +1,11 @@
+{
+  "name": "publisher",
+  "version": "1.0.0",
+  "description": "A program for publishing queue messages to subscriber programs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Frederik Lundbeck Jørgensen",
+  "license": "ISC"
+}
